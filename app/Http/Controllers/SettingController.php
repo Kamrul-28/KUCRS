@@ -54,7 +54,7 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
         $this->validate($request, [
-            'app_logo_path' => 'required|max:2048',
+            'app_logo_path' => 'max:2048',
             'app_name' => 'required',
             'app_url' => 'required',
         ]);
@@ -66,10 +66,8 @@ class SettingController extends Controller
             $imageName = time() . '.' . $request->app_logo_path->extension();
             $request->app_logo_path->move(public_path('backend/assets/images/'), $imageName);
             $path = URL("/") . '/' . 'backend/assets/images/' . $imageName;
-            return $path;
+            $setting->app_logo_path = $path;
         }
-
-        $setting->app_logo_path = $request->app_logo_path;
         $setting->update();
 
         return redirect()->back()->with('success', 'Settings Updated Successfully!!');

@@ -44,7 +44,7 @@
                         </ul>
                     </div>
                 @endif
-                <form class="row g-3" action="{{route('settings.update')}}" method="POST">
+                <form class="row g-3" action="{{route('settings.update')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $index->id }}">
                     <div class="col-md-6">
