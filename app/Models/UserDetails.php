@@ -28,5 +28,6 @@ class UserDetails extends Model
         'admitted_at',
         'nid',
         'photo',
+        'about',
     ];
 }

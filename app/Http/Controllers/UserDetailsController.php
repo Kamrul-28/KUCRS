@@ -12,7 +12,7 @@ class UserDetailsController extends Controller
      */
     public function index()
     {
-        //
+        return view('profile.userProfile');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserDetailsController extends Controller
      */
     public function update(Request $request, UserDetails $userDetails)
     {
-        //
+        return $request;
     }
 
     /**

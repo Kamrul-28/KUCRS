@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDetailsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,7 +17,14 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     // Routes For User Profile
-    Route::view('/user_profile', 'profile.userProfile')->name('profile.userProfile');
+    Route::group(['prefix' => '/user_profile', 'as' => 'profile.',], function () {
+        Route::get('/', [UserDetailsController::class, 'index'])->name('userProfile');
+        Route::get('/create', [UserDetailsController::class, 'create'])->name('create');
+        Route::post('/store', [UserDetailsController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [UserDetailsController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [UserDetailsController::class, 'update'])->name('updateProfile');
+    });
+
 
     Route::middleware('profile_check')->group(function () {
 

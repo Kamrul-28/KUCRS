@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('admitted_at')->nullable();
             $table->string('nid')->nullable();
             $table->string('photo')->nullable();
+            $table->longText('about')->nullable();
             $table->timestamps();
         });
     }

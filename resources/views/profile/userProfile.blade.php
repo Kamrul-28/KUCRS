@@ -51,10 +51,6 @@
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
-
-                <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
@@ -106,7 +102,7 @@
                 <div class="tab-pane show active fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form action="#" method="POST" enctype="multipart/form-data">
+                  <form action="{{ route('profile.updateProfile', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
@@ -118,136 +114,159 @@
                         </div>
                       </div>
                     </div>
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                     <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                      <label for="student_id" class="col-md-4 col-lg-3 col-form-label">Student Id</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                        <input name="student_id" type="text" class="form-control" id="student_id" value="">
                       </div>
                     </div>
-
+                    <div class="row mb-3">
+                      <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="name" type="text" class="form-control" id="name" value="{{Auth::user()->name}}">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="father_name" class="col-md-4 col-lg-3 col-form-label">Father Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="father_name" type="text" class="form-control" id="father_name" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="mother_name" class="col-md-4 col-lg-3 col-form-label">Mother Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="mother_name" type="text" class="form-control" id="mother_name" value="">
+                      </div>
+                    </div>
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                        <textarea name="about" class="form-control" id="about" style="height: 100px"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="batch" class="col-md-4 col-lg-3 col-form-label">Batch</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="batch" type="text" class="form-control" id="batch" value="">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                      <label for="designation" class="col-md-4 col-lg-3 col-form-label">Designation</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                        <input name="designation" type="text" class="form-control" id="designation" value="">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
+                      <label for="hall" class="col-md-4 col-lg-3 col-form-label">Hall</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                        <input name="hall" type="text" class="form-control" id="hall" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="hall_status" class="col-md-4 col-lg-3 col-form-label">hall_status</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="hall_status" type="text" class="form-control" id="hall_status" value="">
+                            <option selected disabled>------- Select -------</option>
+                            <option value="1">Residential</option>
+                            <option value="2">Non-Residential</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="present_address" class="col-md-4 col-lg-3 col-form-label">Present Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="present_address" type="text" class="form-control" id="present_address" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="permanent_address" class="col-md-4 col-lg-3 col-form-label">Permanent Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="permanent_address" type="text" class="form-control" id="permanent_address" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="quata" class="col-md-4 col-lg-3 col-form-label">quata</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="quata" type="text" class="form-control" id="quata" value="">
+                          <option selected disabled> -------- Select -------- </option>
+                          <option value="1">No</option>
+                          <option value="2">Freedom Fighter</option>
+                          <option value="3">Others</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="religion" class="col-md-4 col-lg-3 col-form-label">Religion</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="religion" type="text" class="form-control" id="religion" value="">
+                          <option selected disabled> -------- Select -------- </option>
+                          <option value="1">Islam</option>
+                          <option value="2">Hindu</option>
+                          <option value="3">Others</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select name="gender" type="text" class="form-control" id="gender" value="">
+                          <option selected disabled> -------- Select -------- </option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                        </select>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <label for="mobile_no" class="col-md-4 col-lg-3 col-form-label">Mobile No</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Country" value="USA">
+                        <input name="mobile_no" type="text" class="form-control" id="mobile_no" value="">
                       </div>
                     </div>
-
                     <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <label for="dob" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                        <input name="dob" type="date" class="form-control" id="dob" value="">
                       </div>
                     </div>
-
                     <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <label for="gurdian" class="col-md-4 col-lg-3 col-form-label">Gurdian</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                        <input name="gurdian" type="text" class="form-control" id="gurdian" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="local_gurdian" class="col-md-4 col-lg-3 col-form-label">Local Gurdian</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="local_gurdian" type="text" class="form-control" id="local_gurdian" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="admitted_at" class="col-md-4 col-lg-3 col-form-label">Admitted At</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="admitted_at" type="date" class="form-control" id="admitted_at" value="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="nid" class="col-md-4 col-lg-3 col-form-label">NID NO</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="nid" type="text" class="form-control" id="nid" value="">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                        <input name="email" type="email" class="form-control" id="Email" value="{{Auth::user()->email}}">
                       </div>
                     </div>
-
-                    <div class="row mb-3">
-                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
-                      </div>
-                    </div>
-
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
-
-                </div>
-
-                <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  <!-- Settings Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End settings Form -->
 
                 </div>
 
