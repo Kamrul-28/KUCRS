@@ -1,11 +1,11 @@
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header style="background-color:#F68B1E;" id="header" class="header fixed-top d-flex align-items-center">
     @php
       $settings = App\Models\Setting::first();
     @endphp
     <div class="d-flex align-items-center justify-content-between">
       <a href="" class="logo d-flex align-items-center">
-        <img src="{{$settings->app_logo_path}}" alt="">
+        <img src="{{$settings->app_logo_path}}" alt="KU Logo">
         <span class="d-none d-lg-block">{{$settings->app_name}}</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>

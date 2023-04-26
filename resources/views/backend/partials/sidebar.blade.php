@@ -1,5 +1,9 @@
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside 
+    style="background-color:#093D4A;"
+    id="sidebar" 
+    class="sidebar"
+  >
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -13,7 +17,7 @@
         <a class="nav-link collapsed" data-bs-target="#persons-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-grid-3x3-gap"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="persons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="persons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('user.allUser') }}">
               <i class="bi bi-circle"></i><span>All Users</span>
