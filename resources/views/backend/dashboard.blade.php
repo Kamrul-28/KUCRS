@@ -2,6 +2,9 @@
 
 @section('content')
 <main id="main" class="main">
+    @if(Session::has('warning'))
+      <p class="alert alert-danger">{{ Session::get('warning') }}</p>
+    @endif
             <div class="pagetitle">
                 <h1>Dashboard</h1>
                 <nav>

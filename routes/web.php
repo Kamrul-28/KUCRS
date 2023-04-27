@@ -32,17 +32,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        Route::group(['prefix' => '/user', 'as' => 'user.',], function () {
-            Route::get('/', [UserController::class, 'index'])->name('allUser');
-            Route::get('/create', [UserController::class, 'create'])->name('create');
-            Route::post('/store', [UserController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
-        });
+        Route::middleware('admin_check')->group(function () {
+            Route::group(['prefix' => '/user', 'as' => 'user.',], function () {
+                Route::get('/', [UserController::class, 'index'])->name('allUser');
+                Route::get('/create', [UserController::class, 'create'])->name('create');
+                Route::post('/store', [UserController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+            });
 
-        Route::group(['prefix' => '/settings', 'as' => 'settings.',], function () {
-            Route::get('/', [SettingController::class, 'index'])->name('index');
-            Route::post('/update', [SettingController::class, 'update'])->name('update');
+            Route::group(['prefix' => '/settings', 'as' => 'settings.',], function () {
+                Route::get('/', [SettingController::class, 'index'])->name('index');
+                Route::post('/update', [SettingController::class, 'update'])->name('update');
+            });
         });
     });
 });
