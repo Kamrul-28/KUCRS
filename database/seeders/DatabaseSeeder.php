@@ -17,11 +17,12 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Test User',
             'email' => 'x@email.com',
+            'role_id' => 1,
             'password' => Hash::make('123456')
         ]);
 
         DB::table('settings')->insert([
-            'app_name' => 'Khulna University Course Registration System',
+            'app_name' => 'KUCRS',
             'app_url' => 'http://localhost:8000/',
             'app_logo_path' => 'http://localhost:8000/global_assets/images/ku_logo.png'
         ]);

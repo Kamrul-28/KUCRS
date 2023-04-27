@@ -2,6 +2,7 @@
   <header style="background-color:#F68B1E;" id="header" class="header fixed-top d-flex align-items-center">
     @php
       $settings = App\Models\Setting::first();
+      $user = App\Models\User::leftJoin('user_details','user_details.user_id','=','users.id')->where('users.id',Auth::user()->id)->first();
     @endphp
     <div class="d-flex align-items-center justify-content-between">
       <a href="" class="logo d-flex align-items-center">
@@ -171,7 +172,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{asset('backend/assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+            <img src="{{ $user->photo }}" alt="Profile" class="circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name}}</span>
           </a><!-- End Profile Iamge Icon -->
 

@@ -16,7 +16,6 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -31,6 +30,7 @@
             <main>
                 {{ $slot }}
             </main>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         </div>
     </body>
 </html>
