@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->string('role_name');
-            $table->string('premession_id')->nullable();
-            $table->string('is_active')->default('1');
+            $table->string('grade_symbol');
+            $table->string('mark_renge');
+            $table->string('is_active');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('grades');
     }
 };

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('nid')->nullable();
             $table->string('photo')->nullable();
             $table->longText('about')->nullable();
+            $table->longText('is_graduated')->nullable();
             $table->timestamps();
         });
     }

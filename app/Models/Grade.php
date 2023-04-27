@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Grade extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'role_name',
-        'premession_id',
+        'grade_symbol',
+        'mark_renge',
         'is_active',
     ];
 }

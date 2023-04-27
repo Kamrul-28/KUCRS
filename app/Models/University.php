@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class University extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'role_name',
-        'premession_id',
+        'university_name',
         'is_active',
     ];
 }
