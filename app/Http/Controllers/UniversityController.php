@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\University;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class UniversityController extends Controller
 {
@@ -12,7 +13,8 @@ class UniversityController extends Controller
      */
     public function index()
     {
-        //
+        $university = University::all();
+        return view("backend.university.universitys", compact(['university']));
     }
 
     /**
@@ -20,7 +22,7 @@ class UniversityController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.university.create');
     }
 
     /**
@@ -28,7 +30,17 @@ class UniversityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'university_name' => 'required',
+            'is_active' => 'required',
+        ]);
+
+        $university = new University();
+        $university->university_name = $request->university_name;
+        $university->is_active = $request->is_active;
+        $university->save();
+
+        return redirect()->back()->with('success', 'Congratulations!! University Created Successfully!!');
     }
 
     /**
@@ -42,17 +54,30 @@ class UniversityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(University $university)
+    public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $university = University::find($id);
+        return view('backend.university.edit', compact(['university']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, University $university)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'university_name' => 'required',
+            'is_active' => 'required',
+        ]);
+
+        $id = Crypt::decrypt($id);
+        $university = University::find($id);
+        $university->university_name = $request->university_name;
+        $university->is_active = $request->is_active;
+        $university->update();
+
+        return redirect()->back()->with('success', 'Congratulations!! University Updated Successfully!!');
     }
 
     /**

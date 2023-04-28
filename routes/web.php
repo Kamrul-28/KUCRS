@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DisciplineController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailsController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +39,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         Route::middleware('admin_check')->group(function () {
+
+            // Routes For Users
             Route::group(['prefix' => '/user', 'as' => 'user.',], function () {
                 Route::get('/', [UserController::class, 'index'])->name('allUser');
                 Route::get('/create', [UserController::class, 'create'])->name('create');
@@ -41,9 +49,64 @@ Route::middleware('auth')->group(function () {
                 Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
             });
 
+            // Routes For Settings
             Route::group(['prefix' => '/settings', 'as' => 'settings.',], function () {
                 Route::get('/', [SettingController::class, 'index'])->name('index');
                 Route::post('/update', [SettingController::class, 'update'])->name('update');
+            });
+
+            // Routes For University Model
+            Route::group(['prefix' => '/university', 'as' => 'university.',], function () {
+                Route::get('/', [UniversityController::class, 'index'])->name('universitys');
+                Route::get('/create', [UniversityController::class, 'create'])->name('create');
+                Route::post('/store', [UniversityController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [UniversityController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [UniversityController::class, 'update'])->name('update');
+            });
+
+            // Routes For School Model
+            Route::group(['prefix' => '/school', 'as' => 'school.',], function () {
+                Route::get('/', [SchoolController::class, 'index'])->name('schools');
+                Route::get('/create', [SchoolController::class, 'create'])->name('create');
+                Route::post('/store', [SchoolController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [SchoolController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [SchoolController::class, 'update'])->name('update');
+            });
+
+            // Routes For discipline Model
+            Route::group(['prefix' => '/discipline', 'as' => 'discipline.',], function () {
+                Route::get('/', [DisciplineController::class, 'index'])->name('disciplines');
+                Route::get('/create', [DisciplineController::class, 'create'])->name('create');
+                Route::post('/store', [DisciplineController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [DisciplineController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [DisciplineController::class, 'update'])->name('update');
+            });
+
+            // Routes For course Model
+            Route::group(['prefix' => '/course', 'as' => 'course.',], function () {
+                Route::get('/', [CourseController::class, 'index'])->name('courses');
+                Route::get('/create', [CourseController::class, 'create'])->name('create');
+                Route::post('/store', [CourseController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [CourseController::class, 'update'])->name('update');
+            });
+
+            // Routes For permission Model
+            Route::group(['prefix' => '/permission', 'as' => 'permission.',], function () {
+                Route::get('/', [PermissionController::class, 'index'])->name('permissions');
+                Route::get('/create', [PermissionController::class, 'create'])->name('create');
+                Route::post('/store', [PermissionController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [PermissionController::class, 'update'])->name('update');
+            });
+
+            // Routes For ROle Model
+            Route::group(['prefix' => '/role', 'as' => 'role.',], function () {
+                Route::get('/', [RoleController::class, 'index'])->name('roles');
+                Route::get('/create', [RoleController::class, 'create'])->name('create');
+                Route::post('/store', [RoleController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
             });
         });
     });
