@@ -6,16 +6,16 @@
 
     <div class="pagetitle d-flex justify-content-between">
         <div>
-            <h1 class="mb-2">Edit User</h1>
+            <h1 class="mb-2">Edit University</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item">User</li>
-                    <li class="breadcrumb-item active">Edit User</li>
+                    <li class="breadcrumb-item">University</li>
+                    <li class="breadcrumb-item active">Edit University</li>
                 </ol>
             </nav>
         </div>
-        <div><a href="{{ route('user.allUser')}}"  class="btn btn-primary ">All Users</a></div>
+        <div><a href="{{ route('university.universitys')}}"  class="btn btn-primary ">All Universitys</a></div>
     </div><!-- End Page Title -->
 
     @if (session()->has('success'))
@@ -36,37 +36,27 @@
           <div class="card">
             <div class="card-body p-5">
                 <!-- Multi Columns Form -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <form class="row g-3" action="{{route('user.update',encrypt($user->id))}}" method="POST">
+                <form class="row g-3" action="{{route('university.update',encrypt($university->id))}}" method="POST">
                     @csrf
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Name<sup class="text-danger">*</sup></label>
-                        <input class="form-control" type="text" name="name" placeholder="Name" required value="{{ $user->name}}">
-                    </div>
+                        <label for="university_name" class="form-label">University Name<sup class="text-danger">*</sup></label>
+                        <input class="form-control" type="text" name="university_name" value="{{$university->university_name}}" placeholder="University Name">
+                        @error('university_name')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                      </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">Email<sup class="text-danger">*</sup></label>
-                        <input class="form-control" type="text" name="email" value="{{ $user->email}}" placeholder="Email Address" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="role" class="form-label">Role<sup class="text-danger">*</sup></label>
-                        <select id="role" name="role_id" required class="form-control">
-                            <option disabled> ----  Select ----</option>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->role_name}}</option>
-                            @endforeach
+                        <label for="is_active" class="form-label">Is Active<sup class="text-danger">*</sup></label>
+                        <select id="is_active" name="is_active" class="form-control">
+                            <option selected disabled> ----  Select ----</option>
+                            @if($university->is_active == 1)
+                            <option value="1" selected>Active</option>
+                            <option value="0">Not Active</option>
+                            @else
+                            <option value="1" >Active</option>
+                            <option value="0" selected>Not Active</option>
+                            @endif
+
                         </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" id="password"  class="form-control" />
+                        @error('is_active')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="text-right">
                         <button style="float: right;" type="submit" class="btn btn-warning">Update</button>

@@ -14,7 +14,10 @@ class DisciplineController extends Controller
      */
     public function index()
     {
-        $disciplines = Discipline::join('schools', 'schools.id', '=', 'disciplines.school_id')->get();
+        $disciplines = Discipline::join('schools', 'schools.id', '=', 'disciplines.school_id')
+            ->join('universities', 'universities.id', '=', 'schools.university_id')
+            ->select('disciplines.*', 'schools.school_name', 'universities.university_name')
+            ->get();
         return view("backend.discipline.disciplines", compact(['disciplines']));
     }
 
@@ -61,8 +64,9 @@ class DisciplineController extends Controller
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
-        $discipline = Discipline::join('schools', 'schools.id', '=', 'disciplines.university_id')->first();
-        return view('backend.discipline.edit', compact(['discipline']));
+        $school = School::where('is_active', 1)->get();
+        $discipline = Discipline::find($id);
+        return view('backend.discipline.edit', compact(['discipline', 'school']));
     }
 
     /**

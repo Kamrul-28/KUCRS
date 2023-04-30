@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('role_name');
-            $table->string('premession_id')->nullable();
+            $table->string('permission_id')->nullable();
             $table->string('is_active')->default('1');
             $table->timestamps();
         });

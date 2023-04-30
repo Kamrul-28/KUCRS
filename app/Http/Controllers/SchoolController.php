@@ -14,7 +14,9 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::join('universities', 'universities.id', '=', 'schools.university_id')->get();
+        $schools = School::join('universities', 'universities.id', '=', 'schools.university_id')
+            ->select('schools.*', 'universities.university_name')
+            ->get();
         return view("backend.school.schools", compact(['schools']));
     }
 
@@ -61,8 +63,9 @@ class SchoolController extends Controller
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
-        $school = School::join('universities', 'universities.id', '=', 'schools.university_id')->first();
-        return view('backend.school.edit', compact(['school']));
+        $school = School::find($id);
+        $university = University::where('is_active', 1)->get();
+        return view('backend.school.edit', compact(['school', 'university']));
     }
 
     /**

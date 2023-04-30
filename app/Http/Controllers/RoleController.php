@@ -14,7 +14,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::join('permissions', 'permissions.id', '=', 'roles.permission_id')->get();
+        $roles = Role::leftJoin('permissions', 'permissions.id', '=', 'roles.permission_id')
+            ->select('roles.*', 'permissions.permession_name')
+            ->get();
         return view("backend.role.roles", compact(['roles']));
     }
 
@@ -34,13 +36,13 @@ class RoleController extends Controller
     {
         $request->validate([
             'role_name' => 'required',
-            'premession_id' => 'required',
+            'permission_id' => 'required',
             'is_active' => 'required',
         ]);
 
         $role = new role();
         $role->role_name = $request->role_name;
-        $role->premession_id = $request->premession_id;
+        $role->permission_id = $request->permission_id;
         $role->is_active = $request->is_active;
         $role->save();
 
@@ -61,8 +63,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
-        $role = Role::join('permissions', 'permissions.id', '=', 'roles.permission_id')->first();
-        return view('backend.role.edit', compact(['role']));
+        $role = Role::find($id);
+        $permissions = Permission::where('is_active', 1)->get();
+        return view('backend.role.edit', compact(['role', 'permissions']));
     }
 
     /**
@@ -72,14 +75,14 @@ class RoleController extends Controller
     {
         $request->validate([
             'role_name' => 'required',
-            'premession_id' => 'required',
+            'permission_id' => 'required',
             'is_active' => 'required',
         ]);
 
         $id = Crypt::decrypt($id);
         $role = Role::find($id);
         $role->role_name = $request->role_name;
-        $role->premession_id = $request->premession_id;
+        $role->permission_id = $request->permission_id;
         $role->is_active = $request->is_active;
         $role->update();
 

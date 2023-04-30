@@ -4,7 +4,6 @@
     id="sidebar"
     class="sidebar"
   >
-
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
@@ -15,18 +14,35 @@
       </li><!-- End Dashboard Nav -->
       @if (Auth::user()->role_id < 3)
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#Universitys-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-grid-3x3-gap"></i><span>Universitys</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-grid-3x3-gap"></i><span>Courses</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="Universitys-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="Courses-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             <li>
-                <a href="{{ route('university.universitys') }}">
-                <i class="bi bi-circle"></i><span>All Universitys</span>
+                <a href="{{ route('course.courses') }}">
+                <i class="bi bi-circle"></i><span>All Courses</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('university.create') }}">
-                <i class="bi bi-circle"></i><span>Create University</span>
+                <a href="{{ route('course.create') }}">
+                <i class="bi bi-circle"></i><span>Create Course</span>
+                </a>
+            </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Disciplines-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-grid-3x3-gap"></i><span>Disciplines</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Disciplines-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="{{ route('discipline.disciplines') }}">
+                <i class="bi bi-circle"></i><span>All Disciplines</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('discipline.create') }}">
+                <i class="bi bi-circle"></i><span>Create Discipline</span>
                 </a>
             </li>
             </ul>
@@ -49,35 +65,18 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#Disciplines-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-grid-3x3-gap"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" data-bs-target="#Universitys-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-grid-3x3-gap"></i><span>Universitys</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="Disciplines-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="Universitys-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             <li>
-                <a href="{{ route('discipline.disciplines') }}">
-                <i class="bi bi-circle"></i><span>All Disciplines</span>
+                <a href="{{ route('university.universitys') }}">
+                <i class="bi bi-circle"></i><span>All Universitys</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('discipline.create') }}">
-                <i class="bi bi-circle"></i><span>Create Discipline</span>
-                </a>
-            </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-grid-3x3-gap"></i><span>Courses</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="Courses-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-                <a href="{{ route('course.courses') }}">
-                <i class="bi bi-circle"></i><span>All Courses</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('course.create') }}">
-                <i class="bi bi-circle"></i><span>Create Course</span>
+                <a href="{{ route('university.create') }}">
+                <i class="bi bi-circle"></i><span>Create University</span>
                 </a>
             </li>
             </ul>

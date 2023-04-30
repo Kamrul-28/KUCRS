@@ -6,16 +6,16 @@
 
     <div class="pagetitle d-flex justify-content-between">
         <div>
-            <h1 class="mb-2">All User</h1>
+            <h1 class="mb-2">All Universitys</h1>
             <nav>
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item">User</li>
-                <li class="breadcrumb-item active">All Users</li>
+                <li class="breadcrumb-item">University</li>
+                <li class="breadcrumb-item active">All Universitys</li>
                 </ol>
             </nav>
         </div>
-        <div><a href="{{ route('user.create') }}"  class="btn btn-primary ">Add New User</a></div>
+        <div><a href="{{ route('university.create') }}"  class="btn btn-primary ">Add New University</a></div>
     </div><!-- End Page Title -->
 
     @if (session()->has('success'))
@@ -35,29 +35,31 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-                <h5 class="card-title">User List</h5>
+                <h5 class="card-title">University List</h5>
                 <!-- Table with stripped rows -->
                 <table id="example" class="table table-striped display">
                     <thead  class="committee_style">
                     <tr >
                         <th>S.N</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>University Name</th>
+                        <th>Is Active</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php $i=0; @endphp
-                    @foreach ($users as $data)
+                    @foreach ($university as $data)
                         <tr>
 
                             <td>{{$i=$i+1 }}</td>
-                            <td>{{$data->name}}</td>
-                            <td>{{$data->email}}</td>
-                            <td>{{$data->role_name}}</td>
+                            <td>{{$data->university_name}}</td>
+                            @if($data->is_active == 1)
+                            <td>Active</td>
+                            @else
+                            <td>Not Active</td>
+                            @endif
                             <td class="text-center">
-                                <a href="{{route('user.edit',encrypt($data->id))}}" class="btn btn-primary" ><i class="ri-edit-2-line"></i></a>
+                                <a href="{{route('university.edit',encrypt($data->id))}}" class="btn btn-primary" ><i class="ri-edit-2-line"></i></a>
                             </td>
                             
                         </tr>

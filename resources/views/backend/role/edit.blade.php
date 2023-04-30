@@ -6,16 +6,16 @@
 
     <div class="pagetitle d-flex justify-content-between">
         <div>
-            <h1 class="mb-2">Edit User</h1>
+            <h1 class="mb-2">Edit Role</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item">User</li>
-                    <li class="breadcrumb-item active">Edit User</li>
+                    <li class="breadcrumb-item">Role</li>
+                    <li class="breadcrumb-item active">Edit Role</li>
                 </ol>
             </nav>
         </div>
-        <div><a href="{{ route('user.allUser')}}"  class="btn btn-primary ">All Users</a></div>
+        <div><a href="{{ route('role.roles')}}"  class="btn btn-primary ">All Roles</a></div>
     </div><!-- End Page Title -->
 
     @if (session()->has('success'))
@@ -36,37 +36,37 @@
           <div class="card">
             <div class="card-body p-5">
                 <!-- Multi Columns Form -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <form class="row g-3" action="{{route('user.update',encrypt($user->id))}}" method="POST">
+                <form class="row g-3" action="{{route('role.update',Crypt::encrypt($role->id))}}" method="POST">
                     @csrf
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Name<sup class="text-danger">*</sup></label>
-                        <input class="form-control" type="text" name="name" placeholder="Name" required value="{{ $user->name}}">
+                        <label for="role_name" class="form-label">Role Name<sup class="text-danger">*</sup></label>
+                        <input value="{{$role->role_name}}" class="form-control" type="text" name="role_name" placeholder="Role Name">
+                        @error('role_name')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">Email<sup class="text-danger">*</sup></label>
-                        <input class="form-control" type="text" name="email" value="{{ $user->email}}" placeholder="Email Address" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="role" class="form-label">Role<sup class="text-danger">*</sup></label>
-                        <select id="role" name="role_id" required class="form-control">
-                            <option disabled> ----  Select ----</option>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->role_name}}</option>
+                        <label for="permission_id" class="form-label">Permissions<sup class="text-danger">*</sup></label>
+                        <select id="role" name="permission_id" class="form-control">
+                            <option selected disabled> ----  Select ----</option>
+                            @foreach($permissions as $per)
+                            <option value="{{$per->id}}" {{ $role->permission_id == $per->id ? 'selected' : '' }}>{{$per->permession_name}}</option>
                             @endforeach
                         </select>
+                        @error('permission_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" id="password"  class="form-control" />
+                    <div class="col-md-4">
+                        <label for="is_active" class="form-label">Is Active<sup class="text-danger">*</sup></label>
+                        <select id="is_active" name="is_active" class="form-control">
+                            <option selected disabled> ----  Select ----</option>
+                            @if($role->is_active == 1)
+                            <option value="1" selected>Active</option>
+                            <option value="0">Not Active</option>
+                            @else
+                            <option value="1" >Active</option>
+                            <option value="0" selected>Not Active</option>
+                            @endif
+
+                        </select>
+                        @error('is_active')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="text-right">
                         <button style="float: right;" type="submit" class="btn btn-warning">Update</button>

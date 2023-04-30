@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Discipline;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -14,8 +15,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::join('disciplines', 'disciplines.id', '=', 'courses.discipline_id')->get();
-        return view("backend.course.courses", compact(['courses']));
+        $courses = Course::join('disciplines', 'disciplines.id', '=', 'courses.discipline_id')
+            ->select('courses.*', 'disciplines.discipline_name')
+            ->get();
+        $users = User::all();
+        return view("backend.course.courses", compact(['courses', 'users']));
     }
 
     /**
@@ -23,8 +27,9 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $teachers = User::where('role_id', 3)->get();
         $discipline = Discipline::where('is_active', 1)->get();
-        return view('backend.course.create', compact(['discipline']));
+        return view('backend.course.create', compact(['discipline', 'teachers']));
     }
 
     /**
@@ -47,7 +52,9 @@ class CourseController extends Controller
         $course->course_title = $request->course_title;
         $course->discipline_id = $request->discipline_id;
         $course->course_code = $request->course_code;
-        $course->description = $request->description;
+        if ($request->description) {
+            $course->description = $request->description;
+        }
         $course->year = $request->year;
         $course->term = $request->term;
         $course->course_credit = $request->course_credit;
@@ -58,7 +65,8 @@ class CourseController extends Controller
             $course->sec_b_syllabus = $request->sec_b_syllabus;
         }
         if ($request->teacher_id) {
-            $course->teacher_id = $request->teacher_id;
+            $teachers = implode(',', $request->teacher_id);
+            $course->teacher_id = $teachers;
         }
         $course->is_active = $request->is_active;
         $course->save();
@@ -80,8 +88,10 @@ class CourseController extends Controller
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
-        $course = Course::join('disciplines', 'disciplines.id', '=', 'courses.discipline_id')->first();
-        return view('backend.course.edit', compact(['course']));
+        $teachers = User::where('role_id', 3)->get();
+        $discipline = Discipline::where('is_active', 1)->get();
+        $course = Course::find($id);
+        return view('backend.course.edit', compact(['course', 'discipline', 'teachers']));
     }
 
     /**
@@ -105,7 +115,9 @@ class CourseController extends Controller
         $course->course_title = $request->course_title;
         $course->discipline_id = $request->discipline_id;
         $course->course_code = $request->course_code;
-        $course->description = $request->description;
+        if ($request->description) {
+            $course->description = $request->description;
+        }
         $course->year = $request->year;
         $course->term = $request->term;
         $course->course_credit = $request->course_credit;
@@ -116,7 +128,8 @@ class CourseController extends Controller
             $course->sec_b_syllabus = $request->sec_b_syllabus;
         }
         if ($request->teacher_id) {
-            $course->teacher_id = $request->teacher_id;
+            $teachers = implode(',', $request->teacher_id);
+            $course->teacher_id = $teachers;
         }
         $course->is_active = $request->is_active;
         $course->update();
