@@ -140,8 +140,8 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(course $course)
+    public function offered()
     {
-        //
+        return view('backend.course.offered');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SettingController;
@@ -89,6 +90,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/store', [CourseController::class, 'store'])->name('store');
                 Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
                 Route::post('/update/{id}', [CourseController::class, 'update'])->name('update');
+                Route::get('/offered', [CourseController::class, 'offered'])->name('offered');
             });
 
             // Routes For permission Model
@@ -107,6 +109,15 @@ Route::middleware('auth')->group(function () {
                 Route::post('/store', [RoleController::class, 'store'])->name('store');
                 Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
                 Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
+            });
+
+            // Routes For registration Model
+            Route::group(['prefix' => '/registration', 'as' => 'registration.',], function () {
+                Route::get('/', [RegistrationController::class, 'index'])->name('registrations');
+                Route::get('/create', [RegistrationController::class, 'create'])->name('create');
+                Route::post('/store', [RegistrationController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [RegistrationController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [RegistrationController::class, 'update'])->name('update');
             });
         });
     });

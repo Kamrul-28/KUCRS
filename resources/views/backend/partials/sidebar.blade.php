@@ -18,17 +18,29 @@
             <i class="bi bi-grid-3x3-gap"></i><span>Courses</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="Courses-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-                <a href="{{ route('course.courses') }}">
-                <i class="bi bi-circle"></i><span>All Courses</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('course.create') }}">
-                <i class="bi bi-circle"></i><span>Create Course</span>
-                </a>
-            </li>
+                @if (Auth::user()->role_id < 3 || Auth::user()->role_id == 4)
+                <li>
+                    <a href="{{ route('course.offered') }}">
+                    <i class="bi bi-circle"></i><span>Offered Courses</span>
+                    </a>
+                </li>
+                @endif
+                <li>
+                    <a href="{{ route('course.courses') }}">
+                    <i class="bi bi-circle"></i><span>All Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('course.create') }}">
+                    <i class="bi bi-circle"></i><span>Create Course</span>
+                    </a>
+                </li>
             </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('registration.registrations') }}">
+                <i class="bi bi-grid-3x3-gap"></i><span>Registrations</span>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#Disciplines-nav" data-bs-toggle="collapse" href="#">

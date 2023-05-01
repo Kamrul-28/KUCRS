@@ -15,3 +15,11 @@ if (!function_exists('term')) {
         return $term;
     }
 }
+
+if (!function_exists('course_category')) {
+    function course_category()
+    {
+        $course_category = array("Undergraduate", "Graduate", 'M.Phil', 'Ph.D');
+        return $course_category;
+    }
+}

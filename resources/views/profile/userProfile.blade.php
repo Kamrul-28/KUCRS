@@ -3,46 +3,44 @@
 @section('content')
 
 @php $overview = $user->first() @endphp
+@php 
+$userDetails = App\Models\User::join('roles','roles.id','=','users.role_id')
+->where('users.id',Auth::user()->id)
+->select('users.*','roles.role_name')
+->first() 
+@endphp
 
   <main id="main" class="main">
     @if(Session::has('warning'))
       <p class="alert alert-warning">{{ Session::get('warning') }}</p>
     @endif
-    <div class="pagetitle">
-      <h1>Profile</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-          <li class="breadcrumb-item active">Profile</li>
-        </ol>
-      </nav>
+    <div class="card p-3">
+      <div class="row">
+        <div class="col-md-1">
+            {{-- <img src="{{asset('global_assets/images/welcome.jpg')}}" height="100px;" width="100px"> --}}
+            @if ($user->first()->photo != null)
+            <img height="50px;" width="50px;" src="{{ $user->first()->photo }}" alt="Profile" class="rounded-circle">
+            @else
+            <img height="50px;" width="50px;" src="{{asset('backend/assets/images/profile.jpg')}}" alt="Profile" class="rounded-circle">
+            @endif
+        </div>
+        <div class="col-md-6">
+            <div class="pancakes-text"
+              style="font-family: Satisfy, cursive;font-size: 20px;color: #093D4A;text-shadow: 0.02em 0.02em 0 #E8EDF7;
+              ">
+              Welcome {{$userDetails->role_name}} of Khulna University
+            </div> 
+        </div>
+        <div class="col-md-4 text-right">
+            <span style="font-family: Satisfy, cursive;font-size: 20px;color: #093D4A;text-shadow: 0.02em 0.02em 0 #E8EDF7;
+            ">{{Auth::user()->name}}</span> 
+        </div>
+      </div>
+      
     </div><!-- End Page Title -->
 
     <section class="section profile">
       <div class="row">
-        <div class="col-xl-4">
-
-          <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                @if ($user->first()->photo != null)
-                 <img src="{{ $user->first()->photo }}" alt="Profile" class="rounded-circle">
-                @else
-                 <img src="{{asset('backend/assets/images/profile.jpg')}}" alt="Profile" class="rounded-circle">
-                @endif
-
-              <h2>{{ Auth::user()->name }}</h2>
-              <h3>{{ Auth::user()->email }}</h3>
-              {{-- <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div> --}}
-            </div>
-          </div>
-
-        </div>
-
         <div class="col-xl-8">
 
           <div class="card">
@@ -417,6 +415,28 @@
 
               </div><!-- End Bordered Tabs -->
 
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                @if ($user->first()->photo != null)
+                 <img src="{{ $user->first()->photo }}" alt="Profile" class="rounded-circle">
+                @else
+                 <img src="{{asset('backend/assets/images/profile.jpg')}}" alt="Profile" class="rounded-circle">
+                @endif
+
+              <h3>{{ $userDetails->role_name }}</h3>
+              <h2>{{ Auth::user()->name }}</h2>
+              <h3>{{ Auth::user()->email }}</h3>
+              {{-- <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div> --}}
             </div>
           </div>
 
