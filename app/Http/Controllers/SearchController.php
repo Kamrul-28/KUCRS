@@ -12,11 +12,12 @@ class SearchController extends Controller
      */
     public function offeredCourses(Request $request)
     {
-        $courses = Course::where('is_active', 1)->orWhere('year', $request->year)
-            ->orWhere('term', $request->term)
-            ->orWhere('course_type', $request->course_type)
+        $offered = Course::where('is_active', 1)
+            ->where('course_type', $request->course_type)
+            ->where('year', $request->year)
+            ->where('term', $request->term)
             ->get();
-        return $courses;
+        return view('backend.course.offered',compact(['offered','request']));
     }
 
     /**

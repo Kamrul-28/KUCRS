@@ -15,7 +15,7 @@ class Registration extends Model
         'enrollment_year',
         'enrollment_session',
         'enrollment_term',
-        'course_id',
+        'registered_courses_id',
         'student_id',
         'remarks',
         'status',

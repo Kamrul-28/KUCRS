@@ -92,7 +92,7 @@
                         </select>
                         @error('term')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
-                    
+
                     <div class="col-md-4">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" id="description" cols="30" rows="10">{{$course->description}}</textarea>
@@ -131,6 +131,44 @@
 
                         </select>
                         @error('is_active')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="course_type">Course Type <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="course_type" id="course_type">
+                            <option selected disabled> ------ Course Type ------ </option>
+                             @foreach (course_category() as $course_category)
+                                <option value="{{$course_category}}" {{ $course->course_type == $course_category ? 'selected' : '' }}>{{$course_category}}</option>
+                            @endforeach
+                        </select>
+                        @error('course_type')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Course Pattern <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="course_pattern" id="course_pattern">
+                            <option selected disabled>------ Course Pattern ------ </option>
+                            @foreach (course_pattern() as $course_pattern)
+                                <option value="{{$course_pattern}}" {{ $course->course_pattern == $course_pattern ? 'selected' : '' }}>{{$course_pattern}}</option>
+                            @endforeach
+                        </select>
+                        @error('course_pattern')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Is Offered In General ? <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="offered_in_general" id="offered_in_general">
+                            <option selected disabled>------ Is Offered In General ------ </option>
+                            <option value="1" {{ $course->offered_in_general == 1 ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ $course->offered_in_general == 0 ? 'selected' : '' }}>No</option>
+                        </select>
+                        @error('offered_in_general')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Is Offered In Special ? <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="offered_in_special" id="offered_in_special">
+                            <option selected disabled>------ Is Offered In Special ------ </option>
+                            <option value="1" {{ $course->offered_in_general == 1 ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ $course->offered_in_general == 0 ? 'selected' : '' }}>No</option>
+                        </select>
+                        @error('offered_in_special')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="text-right">
                         <button style="float: right;" type="submit" class="btn btn-warning">Update</button>

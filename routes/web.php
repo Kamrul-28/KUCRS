@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/docs', function () {
+    return view('swagger.index');
+});
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -111,19 +115,19 @@ Route::middleware('auth')->group(function () {
                 Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
                 Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
             });
-
-            // Routes For registration Model
-            Route::group(['prefix' => '/registration', 'as' => 'registration.',], function () {
-                Route::get('/', [RegistrationController::class, 'index'])->name('registrations');
-                Route::get('/create', [RegistrationController::class, 'create'])->name('create');
-                Route::post('/store', [RegistrationController::class, 'store'])->name('store');
-                Route::get('/edit/{id}', [RegistrationController::class, 'edit'])->name('edit');
-                Route::post('/update/{id}', [RegistrationController::class, 'update'])->name('update');
-            });
-            // Routes For registration Model
-            Route::group(['prefix' => '/search', 'as' => 'search.',], function () {
-                Route::post('/offered-courses', [SearchController::class, 'offeredCourses'])->name('offered-courses');
-            });
+        });
+        // Routes For registration Model
+        Route::group(['prefix' => '/registration', 'as' => 'registration.',], function () {
+            Route::get('/', [RegistrationController::class, 'index'])->name('registrations');
+            Route::get('/registrationCard', [RegistrationController::class, 'registrationCard'])->name('registrationCard');
+            Route::get('/create', [RegistrationController::class, 'create'])->name('create');
+            Route::post('/store', [RegistrationController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [RegistrationController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [RegistrationController::class, 'update'])->name('update');
+        });
+        // Routes For registration Model
+        Route::group(['prefix' => '/search', 'as' => 'search.',], function () {
+            Route::post('/offered-courses', [SearchController::class, 'offeredCourses'])->name('offered-courses');
         });
     });
 });

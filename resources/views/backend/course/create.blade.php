@@ -92,31 +92,6 @@
                         </select>
                         @error('term')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
-                    
-                    <div class="col-md-4">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="10"></textarea>
-                        @error('description')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="col-md-4">
-                        <label for="sec_a_syllabus" class="form-label">Section A Syllabus</label>
-                        <textarea name="sec_a_syllabus" id="sec_a_syllabus" cols="30" rows="10"></textarea>
-                        @error('sec_a_syllabus')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="col-md-4">
-                        <label for="sec_b_syllabus" class="form-label">Section B Syllabus</label>
-                        <textarea name="sec_b_syllabus" id="sec_b_syllabus" cols="30" rows="10"></textarea>
-                        @error('sec_b_syllabus')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="col-md-4">
-                        <label for="teacher_id" class="form-label">Teacher<sup class="text-danger">*</sup></label>
-                        <select class="form-control" type="text" name="teacher_id[]" multiple>
-                          @foreach($teachers as $item)
-                              <option value="{{$item->id}}">{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        @error('teacher_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
-                    </div>
                     <div class="col-md-4">
                         <label for="is_active" class="form-label">Is Offered<sup class="text-danger">*</sup></label>
                         <select id="is_active" name="is_active" class="form-control">
@@ -125,6 +100,68 @@
                             <option value="0">Not Offered</option>
                         </select>
                         @error('is_active')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="course_type">Course Type <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="course_type" id="course_type">
+                            <option selected disabled> ------ Course Type ------ </option>
+                             @foreach (course_category() as $course_category)
+                                <option value="{{$course_category}}">{{$course_category}}</option>
+                            @endforeach
+                        </select>
+                        @error('course_type')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Course Pattern <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="course_pattern" id="course_pattern">
+                            <option selected disabled>------ Course Pattern ------ </option>
+                            @foreach (course_pattern() as $course_pattern)
+                                <option value="{{$course_pattern}}">{{$course_pattern}}</option>
+                            @endforeach
+                        </select>
+                        @error('course_pattern')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Is Offered In General ? <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="offered_in_general" id="offered_in_general">
+                            <option selected disabled>------ Is Offered In General ------ </option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                        @error('offered_in_general')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="">Is Offered In Special ? <sup class="text-danger">*</sup></label>
+                        <select class="form-control" name="offered_in_special" id="offered_in_special">
+                            <option selected disabled>------ Is Offered In Special ------ </option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                        @error('offered_in_special')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="teacher_id" class="form-label">Teacher<sup class="text-danger">*</sup></label>
+                        <select class="form-control" type="text" name="teacher_id[]" multiple>
+                          @foreach($teachers as $item)
+                              <option value="{{$item->id}}">{{$item->name}}</option>
+                          @endforeach
+                        </select>
+                        @error('teacher_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <div for="description" class="form-label">Description</div>
+                        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                        @error('description')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <div for="sec_a_syllabus" class="form-label">Section A Syllabus</div>
+                        <textarea name="sec_a_syllabus" id="sec_a_syllabus" cols="30" rows="10"></textarea>
+                        @error('sec_a_syllabus')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <div for="sec_b_syllabus" class="form-label">Section B Syllabus</div>
+                        <textarea name="sec_b_syllabus" id="sec_b_syllabus" cols="30" rows="10"></textarea>
+                        @error('sec_b_syllabus')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="text-right">
                         <button style="float: right;" type="submit" class="btn btn-primary">Submit</button>

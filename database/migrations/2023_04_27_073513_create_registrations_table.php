@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('status')->default(1);
-            $table->string('remarks');
-            $table->string('student_id');
-            $table->string('course_id');
-            $table->string('enrollment_term');
-            $table->string('enrollment_session');
-            $table->string('enrollment_year');
-            $table->string('enrolled_credit');
+            $table->string('remarks')->nullable();
+            $table->string('student_id')->nullable();
+            $table->string('registration_type')->nullable();
+            $table->string('registered_courses_id')->nullable();
+            $table->string('discipline_id')->nullable();
+            $table->string('enrollment_term')->nullable();
+            $table->string('enrollment_session')->nullable();
+            $table->string('enrollment_year')->nullable();
+            $table->string('enrolled_credit')->nullable();
             $table->string('is_completed')->default(0);
             $table->timestamps();
         });

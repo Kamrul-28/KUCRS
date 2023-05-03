@@ -30,7 +30,12 @@
                         <select class="form-control" name="course_type" id="course_type">
                             <option selected disabled> ------ Course Category ------ </option>
                              @foreach (course_category() as $course_category)
-                                <option value="{{$course_category}}">{{$course_category}}</option>
+                                <option value="{{$course_category}}"
+                                @if ($request)
+                                {{ $request->course_type == $course_category ? 'selected' : '' }}
+                                @endif
+                                >{{$course_category}}</option>
+
                             @endforeach
                         </select>
                     </div>
@@ -39,7 +44,10 @@
                         <select class="form-control" name="year" id="year">
                             <option selected disabled>------ Year ------ </option>
                             @foreach (year() as $year)
-                                <option value="{{$year}}">{{$year}}</option>
+                                <option value="{{$year}}"
+                                @if ($request)
+                                {{ $request->year == $year ? 'selected' : '' }}
+                                @endif>{{$year}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -48,7 +56,11 @@
                         <select class="form-control" name="term" id="term">
                             <option selected disabled>------ Term ------ </option>
                             @foreach (term() as $term)
-                                <option value="{{$term}}">{{$term}}</option>
+                                <option value="{{$term}}"
+                                @if ($request)
+                                {{ $request->term == $term ? 'selected' : '' }}
+                                @endif
+                                >{{$term}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,7 +75,7 @@
     <div class="card p-3" >
         <div class="card-header" style="background-color:#093D4A;color:aliceblue;">
             <span>List Of Courses Under Year and Term</span> <br>
-            <small style="color:#F68B1E;">Here You Can View & Search the Offered Courses</small> 
+            <small style="color:#F68B1E;">Here You Can View & Search the Offered Courses</small>
         </div>
         <div class="card-body mt-3">
             <table id="example" class="table table-striped display">
@@ -79,10 +91,35 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php $i=0; @endphp
+                        @foreach ($offered as $value)
+                            <tr>
+                                <td>{{$i=$i+1 }}</td>
+                                <td>{{$value->course_code}}</td>
+                                <td>{{$value->course_credit}}</td>
+                                <td>{{$value->course_type}}</td>
+                                <td>{{$value->course_pattern}}</td>
+                                <td>
+                                    @if ($value->offered_in_general == 1)
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
 
+                                </td>
+                                <td>
+                                    @if ($value->offered_in_special == 1)
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
+
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
-                        
+
                     </tfoot>
 
                 </table>

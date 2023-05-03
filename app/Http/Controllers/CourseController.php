@@ -46,6 +46,10 @@ class CourseController extends Controller
             'year' => 'required',
             'description' => 'required',
             'is_active' => 'required',
+            'offered_in_special' => 'required',
+            'offered_in_general' => 'required',
+            'course_pattern' => 'required',
+            'course_type' => 'required',
         ]);
 
         $course = new Course();
@@ -69,6 +73,10 @@ class CourseController extends Controller
             $course->teacher_id = $teachers;
         }
         $course->is_active = $request->is_active;
+        $course->offered_in_special = $request->offered_in_special;
+        $course->offered_in_general = $request->offered_in_general;
+        $course->course_pattern = $request->course_pattern;
+        $course->course_type = $request->course_type;
         $course->save();
 
         return redirect()->back()->with('success', 'Congratulations!! Course Created Successfully!!');
@@ -108,6 +116,10 @@ class CourseController extends Controller
             'year' => 'required',
             'description' => 'required',
             'is_active' => 'required',
+            'offered_in_special' => 'required',
+            'offered_in_general' => 'required',
+            'course_pattern' => 'required',
+            'course_type' => 'required',
         ]);
 
         $id = Crypt::decrypt($id);
@@ -132,6 +144,10 @@ class CourseController extends Controller
             $course->teacher_id = $teachers;
         }
         $course->is_active = $request->is_active;
+        $course->offered_in_special = $request->offered_in_special;
+        $course->offered_in_general = $request->offered_in_general;
+        $course->course_pattern = $request->course_pattern;
+        $course->course_type = $request->course_type;
         $course->update();
 
         return redirect()->back()->with('success', 'Congratulations!! Course Updated Successfully!!');
@@ -142,6 +158,8 @@ class CourseController extends Controller
      */
     public function offered()
     {
-        return view('backend.course.offered');
+        $offered = Course::where('is_active',1)->get();
+        $request = [];
+        return view('backend.course.offered',compact(['offered','request']));
     }
 }

@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('registered_courses', function (Blueprint $table) {
             $table->id();
-            $table->string('app_name');
-            $table->string('app_logo_path');
-            $table->string('app_url');
-            $table->string('current_session')->nullable();
+            $table->string('course_id');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('registered_courses');
     }
 };
