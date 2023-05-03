@@ -15,8 +15,8 @@ class UserDetailsController extends Controller
     public function index()
     {
         $role_id = Auth::user()->role_id;
-        $user = User::leftJoin('user_details','user_details.user_id','=','users.id')->where('users.id',Auth::user()->id);
-        return view('profile.userProfile',compact(['role_id','user']));
+        $user = User::leftJoin('user_details', 'user_details.user_id', '=', 'users.id')->where('users.id', Auth::user()->id);
+        return view('profile.userProfile', compact(['role_id', 'user']));
     }
 
     /**
@@ -54,39 +54,31 @@ class UserDetailsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'student_id' => 'required|numeric',
             'mobile_no' => 'required|numeric',
-            'batch' => 'required|numeric',
-            'hall' => 'required',
-            'hall_status' => 'required',
             'father_name' => 'required',
             'mother_name' => 'required',
-            'quata' => 'required',
             'present_address' => 'required',
             'permanent_address' => 'required',
             'religion' => 'required',
             'gender' => 'required',
             'dob' => 'required',
-            'gurdian' => 'required',
-            'local_gurdian' => 'required',
-            'admitted_at' => 'required',
             'nid' => 'required|numeric',
             'about' => 'required',
         ]);
 
-        $check = UserDetails::where('user_id',$id)->exists();
-        if($check != 1){
+        $check = UserDetails::where('user_id', $id)->exists();
+        if ($check != 1) {
             $userDetails = new UserDetails();
-        }else{
-            $userDetails = UserDetails::where('user_id',$id)->first();
+        } else {
+            $userDetails = UserDetails::where('user_id', $id)->first();
         }
 
-        if($request->file('photo')){
-            $imageName = time().'.'.$request->photo->extension();
-            $path = url()->to('/').'/'.'backend/global_assets/images/profile/'.$imageName;
+        if ($request->file('photo')) {
+            $imageName = time() . '.' . $request->photo->extension();
+            $path = url()->to('/') . '/' . 'backend/global_assets/images/profile/' . $imageName;
             $request->photo->move(public_path('backend/global_assets/images/profile/'), $imageName);
 
             $userDetails->photo = $path;
@@ -113,8 +105,7 @@ class UserDetailsController extends Controller
         $userDetails->about = $request->about;
         $userDetails->save();
 
-        return redirect()->back()->with('success','Congratulations!! Profile Updated Successfully');
-
+        return redirect()->back()->with('success', 'Congratulations!! Profile Updated Successfully');
     }
 
     /**

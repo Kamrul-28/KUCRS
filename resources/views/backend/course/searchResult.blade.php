@@ -22,12 +22,10 @@
             Fetch Year & Term Wise List of Courses
         </div>
         <div class="card-body">
-            <form action="{{ route('search.offered-courses')}}" method="POST">
-                @csrf
                 <div class="row p-3 justify-content-center">
                     <div class="col-md-3">
                         <small for="">Course Category</small>
-                        <select class="form-control" name="course_type" id="course_type">
+                        <select class="form-control" name="course_category" id="course_category">
                             <option selected disabled> ------ Course Category ------ </option>
                              @foreach (course_category() as $course_category)
                                 <option value="{{$course_category}}">{{$course_category}}</option>
@@ -56,7 +54,6 @@
                         <button id="Search" class="btn btn-primary p-2 mt-4 border"><small>Search</small></button>
                     </div>
                 </div>
-            </form>
         </div>
 
     </div>
@@ -90,7 +87,5 @@
     </div>
 
   </main><!-- End #main -->
-
-
 
 @endsection
