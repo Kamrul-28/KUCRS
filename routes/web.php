@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserController;
@@ -118,6 +119,10 @@ Route::middleware('auth')->group(function () {
                 Route::post('/store', [RegistrationController::class, 'store'])->name('store');
                 Route::get('/edit/{id}', [RegistrationController::class, 'edit'])->name('edit');
                 Route::post('/update/{id}', [RegistrationController::class, 'update'])->name('update');
+            });
+            // Routes For registration Model
+            Route::group(['prefix' => '/search', 'as' => 'search.',], function () {
+                Route::post('/offered-courses', [SearchController::class, 'offeredCourses'])->name('offered-courses');
             });
         });
     });

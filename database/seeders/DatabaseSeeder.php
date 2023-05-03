@@ -15,9 +15,33 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'Test User',
-            'email' => 'x@email.com',
+            'name' => 'Super Admin User',
+            'email' => 'super@email.com',
             'role_id' => 1,
+            'password' => Hash::make('123456')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Admin User',
+            'email' => 'admin@email.com',
+            'role_id' => 2,
+            'password' => Hash::make('123456')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Teacher User',
+            'email' => 'teacher@email.com',
+            'role_id' => 3,
+            'password' => Hash::make('123456')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Student User',
+            'email' => 'student@email.com',
+            'role_id' => 4,
+            'password' => Hash::make('123456')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Student User',
+            'email' => 'student1@email.com',
+            'role_id' => 4,
             'password' => Hash::make('123456')
         ]);
 
@@ -29,6 +53,18 @@ class DatabaseSeeder extends Seeder
 
         DB::table('roles')->insert([
             'role_name' => 'Super Admin',
+            'is_active' => 1
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => 'Admin',
+            'is_active' => 1
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => 'Teacher',
+            'is_active' => 1
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => 'Student',
             'is_active' => 1
         ]);
     }

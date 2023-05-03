@@ -118,11 +118,11 @@
                         @error('teacher_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-4">
-                        <label for="is_active" class="form-label">Is Active<sup class="text-danger">*</sup></label>
+                        <label for="is_active" class="form-label">Is Offered<sup class="text-danger">*</sup></label>
                         <select id="is_active" name="is_active" class="form-control">
                             <option selected disabled> ----  Select ----</option>
-                            <option value="1">Active</option>
-                            <option value="0">Not Active</option>
+                            <option value="1">Offered</option>
+                            <option value="0">Not Offered</option>
                         </select>
                         @error('is_active')<div class="alert alert-danger">{{ $message }}</div>@enderror
                     </div>
