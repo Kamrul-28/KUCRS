@@ -40,6 +40,7 @@
                             <th>Student</th>
                             <th>Provost</th>
                             <th>Head</th>
+                            <th>status</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -53,36 +54,78 @@
                                 <td>{{$reg->enrollment_year}}</td>
                                 <td>{{$reg->enrollment_term}}</td>
                                 <td>
-                                    @if ($reg->is_completed!=5)
+                                    @if ($reg->is_completed<1)
                                         Registration Incomplete
+                                    @else
+                                        {{$reg->enrolled_credit}}
                                     @endif
                                 </td>
                                 <td>{{$reg->created_at}}</td>
                                 <td>
-                                    @if ($reg->is_completed!=5)
-                                        N/A
+                                    @if ($reg->is_completed>=2)
+                                    Approved
+                                    @else
+                                    N/A
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($reg->is_completed!=5)
-                                        N/A
+                                    @if ($reg->is_completed>=3)
+                                    Approved
+                                    @else
+                                    N/A
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($reg->is_completed!=5)
-                                        N/A
+                                    @if ($reg->is_completed>=5)
+                                    Approved
+                                    @else
+                                    N/A
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($reg->is_completed!=5)
-                                        N/A
+                                    @if ($reg->is_completed>=6)
+                                    Approved
+                                    @else
+                                    N/A
                                     @endif
                                 </td>
                                 <td>
                                     @if ($reg->is_completed<1)
-                                    <a class="btn btn-dark">Complete</a>
+                                    <a href="{{route('registration.complete',Crypt::encrypt($reg->id))}}" class="btn btn-dark">Complete</a>
+                                    @elseif ($reg->is_completed==1)
+                                        @if (Auth::user()->role_id==3)
+                                        <a href="{{route('registration.complete-registration-payment',Crypt::encrypt($reg->id))}}" class="btn btn-primary">Approve</a>
+                                        @else
+                                        Waiting For Coordinator Approval
+                                        @endif
+                                    @elseif ($reg->is_completed==2)
+                                        @if (Auth::user()->role_id==4)
+                                        <a href="{{route('registration.complete-registration-payment',Crypt::encrypt($reg->id))}}" class="btn btn-primary">Approve</a>
+                                        @else
+                                        Waiting For Student Approval
+                                        @endif
+                                    @elseif($reg->is_completed==3)
+                                    <a href="{{route('registration.pay',Crypt::encrypt($reg->id))}}" class="btn btn-primary">Pay Now</a>
+                                    @elseif($reg->is_completed==4)
+                                        @if (Auth::user()->role_id==3)
+                                        <a href="{{route('registration.complete-registration-payment',Crypt::encrypt($reg->id))}}" class="btn btn-primary">Approve</a>
+                                        @else
+                                        Waiting For Hall Approval
+                                        @endif
+                                    @elseif($reg->is_completed==5)
+                                        @if (Auth::user()->role_id==3)
+                                        <a href="{{route('registration.complete-registration-payment',Crypt::encrypt($reg->id))}}" class="btn btn-primary">Approve</a>
+                                        @else
+                                        Waiting For Head Approval
+                                        @endif
+                                    @elseif($reg->is_completed==6)
+
+                                        Registration Completed
+
                                     @endif
-                                    <a style="margin-left: 5px;" class="btn btn-dark">view</a>
+                                </td>
+                                <td>
+                                    <a href="{{route('registration.complete',Crypt::encrypt($reg->id))}}" style="margin-left: 5px;" class="btn btn-dark">view</a>
                                 </td>
                             </tr>
                         @endforeach

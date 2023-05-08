@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->string('student_id')->nullable();
             $table->string('registration_type')->nullable();
-            $table->string('registered_courses_id')->nullable();
             $table->string('discipline_id')->nullable();
             $table->string('enrollment_term')->nullable();
             $table->string('enrollment_session')->nullable();

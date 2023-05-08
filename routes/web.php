@@ -124,6 +124,12 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [RegistrationController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [RegistrationController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [RegistrationController::class, 'update'])->name('update');
+            Route::get('/complete/{id}', [RegistrationController::class, 'complete'])->name('complete');
+            Route::post('/add-registered-course/{id}', [RegistrationController::class, 'addRegisteredCourse'])->name('add-registered-course');
+            Route::get('/complete-registration/{id}', [RegistrationController::class, 'completeRegistration'])->name('complete-registration');
+            Route::get('/complete-registration-payment/{id}', [RegistrationController::class, 'completeRegistrationPayment'])->name('complete-registration-payment');
+
+            Route::get('/pay/{id}', [RegistrationController::class, 'pay'])->name('pay');
         });
         // Routes For registration Model
         Route::group(['prefix' => '/search', 'as' => 'search.',], function () {
