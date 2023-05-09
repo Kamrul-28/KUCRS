@@ -17,7 +17,24 @@
             <i class="bi bi-grid-3x3-gap"></i><span>Registrations</span>
         </a>
       </li>
-      @if (Auth::user()->role_id < 3)
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Marks-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-grid-3x3-gap"></i><span>Marks</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Marks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('mark.marks') }}">
+                    <i class="bi bi-circle"></i><span>Mark</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('mark.create') }}">
+                    <i class="bi bi-circle"></i><span>View Marks</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @if (Auth::user()->role_id < 3)
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#Courses-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-grid-3x3-gap"></i><span>Courses</span><i class="bi bi-chevron-down ms-auto"></i>

@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
-            $table->string('no_of_class_test')->nullable();
+            $table->string('attendance')->nullable();
+            $table->string('ctOne')->nullable();
+            $table->string('ctTwo')->nullable();
+            $table->string('ctThree')->nullable();
             $table->string('total_class_test_marks')->nullable();
+            $table->string('avg_class_test_marks')->nullable();
             $table->string('sectionA')->nullable();
             $table->string('sectionB')->nullable();
             $table->string('total_mark_in_exam')->nullable();
-            $table->string('avg_class_test_marks')->nullable();
             $table->string('final_mark')->nullable();
             $table->string('grade_id')->nullable();
             $table->string('course_id')->nullable();

@@ -89,29 +89,33 @@
                             </div>
                         </form>
                     @endif
-                    <table id="example" class="table">
-                        <thead>
-                            <tr>
-                                <td>#</td>
-                                <th>Course No</th>
-                                <th>Course Title</th>
-                                <th>Credit</th>
-                                <th>Pattern</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $i=0; @endphp
-                            @foreach ($registered_courses as $registered_course)
-                            <tr>
-                                <td>{{ $i=$i+1; }}</td>
-                                <td>{{$registered_course->course_code}}</td>
-                                <td>{{$registered_course->course_title}}</td>
-                                <td>{{$registered_course->course_credit}}</td>
-                                <td>{{$registered_course->course_pattern}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-12 mt-4">
+                            <table id="example" class="table">
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <th>Course No</th>
+                                        <th>Course Title</th>
+                                        <th>Credit</th>
+                                        <th>Pattern</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $i=0; @endphp
+                                    @foreach ($registered_courses as $registered_course)
+                                    <tr>
+                                        <td>{{ $i=$i+1; }}</td>
+                                        <td>{{$registered_course->course_code}}</td>
+                                        <td>{{$registered_course->course_title}}</td>
+                                        <td>{{$registered_course->course_credit}}</td>
+                                        <td>{{$registered_course->course_pattern}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     @if($registration->is_completed < 1)
                     <div class="row">
                         <div class="col-md-12">

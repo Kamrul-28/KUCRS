@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DisciplineController;
+use App\Http\Controllers\MarkController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
@@ -131,6 +132,17 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pay/{id}', [RegistrationController::class, 'pay'])->name('pay');
         });
+
+        // Routes For Mark
+        Route::group(['prefix' => '/mark', 'as' => 'mark.',], function () {
+            Route::get('/', [MarkController::class, 'index'])->name('marks');
+            Route::post('/create', [MarkController::class, 'create'])->name('create');
+            Route::get('/generate/{id}', [MarkController::class, 'generate'])->name('generate');
+            Route::post('/store', [MarkController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [MarkController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [MarkController::class, 'update'])->name('update');
+        });
+
         // Routes For registration Model
         Route::group(['prefix' => '/search', 'as' => 'search.',], function () {
             Route::post('/offered-courses', [SearchController::class, 'offeredCourses'])->name('offered-courses');
