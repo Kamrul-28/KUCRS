@@ -13,6 +13,7 @@ class Mark extends Model
         'status',
         'teacher_id',
         'student_id',
+        'registration_id',
         'course_id',
         'grade_id',
         'final_mark',
@@ -21,6 +22,9 @@ class Mark extends Model
         'sectionB',
         'sectionA',
         'total_class_test_marks',
-        'no_of_class_test',
+        'ctOne',
+        'ctTwo',
+        'ctThree',
+        'attendance',
     ];
 }

@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class MarkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $request = [];
@@ -22,9 +20,7 @@ class MarkController extends Controller
         return view('backend.mark.marks', compact(['request', 'discipline']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create(Request $request)
     {
         $request->validate([
@@ -67,14 +63,36 @@ class MarkController extends Controller
             ->join('user_details', 'user_details.user_id', '=', 'registrations.student_id')
             ->where('registered_courses.registration_id', $id)
             ->select('courses.*', 'users.name', 'user_details.student_id')->first();
-
-        return view('backend.mark.generate', compact(['registered_courses', 'user']));
+        $registration_id = $id;
+        return view('backend.mark.generate', compact(['registered_courses', 'user', 'registration_id']));
     }
 
     public function store(Request $request)
     {
-        $marks = new Mark();
-        return $request;
+        $min = 0;
+        $size = sizeof($request->cid);
+        for ($i = 0; $i < $size; $i++) {
+            $ct_marks = array();
+
+            $marks = new Mark();
+            $marks->registration_id = $request->registration_id;
+            $marks->course_id = $request->cid[$i];
+            $marks->attendance = $request->attendance[$i];
+            $marks->ctOne = $request->ct1[$i];
+            $marks->ctTwo = $request->ct2[$i];
+            $marks->ctThree = $request->ct3[$i];
+            $marks->total_class_test_marks = ($marks->ctOne + $marks->ctTwo + $marks->ctThree);
+            $marks->sectionA = $request->secA[$i];
+            $marks->sectionB = $request->secB[$i];
+            $marks->total_mark_in_exam = $marks->sectionA + $marks->sectionB;
+            $marks->avg_class_test_marks = $marks->total_class_test_marks / 3;
+            $marks->final_mark = $marks->total_mark_in_exam + $marks->avg_class_test_marks + $marks->attendance;
+
+            array_push($ct_marks, $marks->ctOne, $marks->ctTwo, $marks->ctThree);
+            $min_value = min($ct_marks);
+            // $marks->save();
+        }
+        return array_search($min_value, $ct_marks);
     }
 
     public function edit(Mark $mark)

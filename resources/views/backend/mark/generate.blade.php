@@ -32,7 +32,7 @@
                 <div class="card-body mt-4">
                     <div class="row">
                         <div class="col-md-12 mt-4">
-                            <form action="{{route('mark.store')}}" method="POST">
+                            <form action="{{ route('mark.store')}}" method="POST">
                                 @csrf
                                 <table class="table">
                                     <thead>
@@ -58,6 +58,7 @@
                                             <td><input type="text" class="form-control" name="attendance[]" placeholder="Attendance mark"></td>
                                             <td>
                                                 <input type="hidden" value="{{$registered->cid}}" name="cid[]">
+                                                <input type="hidden" value="{{$registration_id}}" name="registration_id">
                                                 <input type="text" class="form-control" name="ct1[]" placeholder="ct 1 mark">
                                             </td>
                                             <td><input type="text" class="form-control" name="ct2[]" placeholder="ct 2 mark"></td>

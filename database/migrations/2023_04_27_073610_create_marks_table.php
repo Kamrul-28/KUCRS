@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('course_id')->nullable();
             $table->string('student_id')->nullable();
             $table->string('teacher_id')->nullable();
+            $table->string('registration_id')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
