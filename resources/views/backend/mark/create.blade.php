@@ -45,7 +45,7 @@
                                     @php $i=0; @endphp
                                     @foreach ($registration as $registered_course)
                                     <tr>
-                                        <td>{{ $i=$i+1; }}</td>
+                                        <td>{{ $i=$i+1 }}</td>
                                         <td>{{$registered_course->student_id}}</td>
                                         <td>{{$registered_course->name}}</td>
                                         <td><a href="{{ route('mark.generate',Crypt::encrypt($registered_course->reg_id)) }}" class="btn btn-primary">view</a></td>

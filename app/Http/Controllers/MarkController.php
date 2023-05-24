@@ -9,6 +9,8 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Dompdf\Dompdf;
+use Illuminate\View\View;
 
 class MarkController extends Controller
 {
@@ -69,7 +71,7 @@ class MarkController extends Controller
 
     public function store(Request $request)
     {
-        $min = 0;
+
         $size = sizeof($request->cid);
         for ($i = 0; $i < $size; $i++) {
             $ct_marks = array();
@@ -86,13 +88,20 @@ class MarkController extends Controller
             $marks->sectionB = $request->secB[$i];
             $marks->total_mark_in_exam = $marks->sectionA + $marks->sectionB;
             $marks->avg_class_test_marks = $marks->total_class_test_marks / 3;
-            $marks->final_mark = $marks->total_mark_in_exam + $marks->avg_class_test_marks + $marks->attendance;
+
 
             array_push($ct_marks, $marks->ctOne, $marks->ctTwo, $marks->ctThree);
-            $min_value = min($ct_marks);
-            // $marks->save();
+            rsort($ct_marks);
+
+            $avg = (($ct_marks[0] + $ct_marks[1]) / 2);
+            $ct_mark_avg = ceil($avg);
+            $marks->avg_class_test_marks = $ct_mark_avg;
+            $marks->final_mark = $marks->total_mark_in_exam + $marks->avg_class_test_marks + $marks->attendance;
+            $marks->save();
+            unset($ct_marks);
         }
-        return array_search($min_value, $ct_marks);
+        return redirect()->route('mark.marks');
+
     }
 
     public function edit(Mark $mark)
@@ -108,5 +117,45 @@ class MarkController extends Controller
     public function destroy(Mark $mark)
     {
         //
+    }
+    public function getResult()
+    {
+        $request = [];
+        $discipline = Discipline::all();
+        return view('backend.mark.forResult', compact(['request', 'discipline']));
+    }
+    public function printResult(Request $request)
+    {
+        // $registration = Registration::join('users', 'users.id', '=', 'registrations.student_id')
+        //     ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id')
+        //     ->leftJoin('marks', 'marks.registration_id', '=', 'registrations.id')
+        //     ->where('registrations.registration_type', $request->registration_type)
+        //     ->where('registrations.discipline_id', $request->discipline_id)
+        //     ->where('registrations.enrollment_term', $request->term)
+        //     ->where('registrations.enrollment_year', $request->year)
+        //     ->where('registrations.enrollment_session', $request->enrollment_session)
+        //     ->where('registrations.is_completed', 6)
+        //     ->select('registrations.*', 'registrations.id as reg_id', 'users.*', 'user_details.*','marks.*')
+        //     ->get();
+
+        // return $registration;
+        $rr = Registration::leftjoin('marks','marks.registration_id','=','registrations.id')->get();
+        $r = Mark::leftjoin('registrations','registrations.id','=','marks.registration_id')->get();
+        return $rr;
+        $dompdf = new Dompdf();
+        $pdfContent = View::make('mark.print',compact(['registration']))->render();
+        $dompdf->loadHtml($pdfContent);
+
+        // (Optional) Set any desired configuration options
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+        // Output the PDF as a response with appropriate headers
+        return response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="result.pdf"',
+        ]);
     }
 }

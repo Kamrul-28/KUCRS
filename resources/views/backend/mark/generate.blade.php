@@ -44,27 +44,27 @@
                                             <th>CT-1 (30)</th>
                                             <th>CT-2 (30)</th>
                                             <th>CT-3 (30)</th>
-                                            <th>Term-Sec A (60)</th>
-                                            <th>Term-Sec B (60)<input type="hidden" value="{{$registered_courses}}" name="registered_courses"></th>
+                                            <th>Term-Sec A (30)</th>
+                                            <th>Term-Sec B (30)<input type="hidden" value="{{$registered_courses}}" name="registered_courses"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php $i=0; @endphp
                                         @foreach ($registered_courses as $registered)
                                         <tr>
-                                            <td>{{ $i=$i+1; }}</td>
+                                            <td>{{ $i=$i+1 }}</td>
                                             <td>{{$registered->course_code}}</td>
                                             <td>{{$registered->course_title}}</td>
-                                            <td><input type="text" class="form-control" name="attendance[]" placeholder="Attendance mark"></td>
+                                            <td><input type="number" step="0.5" min="0" max="10" class="form-control" name="attendance[]" placeholder="Attendance mark"></td>
                                             <td>
                                                 <input type="hidden" value="{{$registered->cid}}" name="cid[]">
                                                 <input type="hidden" value="{{$registration_id}}" name="registration_id">
-                                                <input type="text" class="form-control" name="ct1[]" placeholder="ct 1 mark">
+                                                <input type="number" step="0.5" min="0" max="30" class="form-control" name="ct1[]" placeholder="ct 1 mark">
                                             </td>
-                                            <td><input type="text" class="form-control" name="ct2[]" placeholder="ct 2 mark"></td>
-                                            <td><input type="text" class="form-control" name="ct3[]" placeholder="ct 3 mark"></td>
-                                            <td><input type="text" class="form-control" name="secA[]" placeholder="sec A mark"></td>
-                                            <td><input type="text" class="form-control" name="secB[]" placeholder="sec B mark"></td>
+                                            <td><input type="number" step="0.5" min="0" max="30" class="form-control" name="ct2[]" placeholder="ct 2 mark"></td>
+                                            <td><input type="number" step="0.5" min="0" max="30" class="form-control" name="ct3[]" placeholder="ct 3 mark"></td>
+                                            <td><input type="number" step="0.5" min="0" max="30" class="form-control" name="secA[]" placeholder="sec A mark"></td>
+                                            <td><input type="number" step="0.5" min="0" max="30" class="form-control" name="secB[]" placeholder="sec B mark"></td>
                                             {{-- <td><a href="{{ route('mark.generate',Crypt::encrypt($registered->reg_id)) }}" class="btn btn-primary">view</a></td>
                                         --}}</tr> 
                                         @endforeach
