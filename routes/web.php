@@ -141,6 +141,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [MarkController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [MarkController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [MarkController::class, 'update'])->name('update');
+            Route::get('/result',[MarkController::class,'getResult'])->name('result');
+            Route::get('/print/{id}',[MarkController::class,'printResult'])->name('print');
         });
 
         // Routes For registration Model

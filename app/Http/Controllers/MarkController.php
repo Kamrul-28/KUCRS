@@ -6,11 +6,11 @@ use App\Models\Discipline;
 use App\Models\Mark;
 use App\Models\RegisteredCourse;
 use App\Models\Registration;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Dompdf\Dompdf;
-use Illuminate\View\View;
+
 
 class MarkController extends Controller
 {
@@ -124,38 +124,27 @@ class MarkController extends Controller
         $discipline = Discipline::all();
         return view('backend.mark.forResult', compact(['request', 'discipline']));
     }
-    public function printResult(Request $request)
+    public function printResult($id)
     {
-        // $registration = Registration::join('users', 'users.id', '=', 'registrations.student_id')
-        //     ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id')
-        //     ->leftJoin('marks', 'marks.registration_id', '=', 'registrations.id')
-        //     ->where('registrations.registration_type', $request->registration_type)
-        //     ->where('registrations.discipline_id', $request->discipline_id)
-        //     ->where('registrations.enrollment_term', $request->term)
-        //     ->where('registrations.enrollment_year', $request->year)
-        //     ->where('registrations.enrollment_session', $request->enrollment_session)
-        //     ->where('registrations.is_completed', 6)
-        //     ->select('registrations.*', 'registrations.id as reg_id', 'users.*', 'user_details.*','marks.*')
-        //     ->get();
+        $Id = Crypt::decrypt($id);
+        
 
+        $registration = Registration::find($Id);
         // return $registration;
-        $rr = Registration::leftjoin('marks','marks.registration_id','=','registrations.id')->get();
-        $r = Mark::leftjoin('registrations','registrations.id','=','marks.registration_id')->get();
-        return $rr;
-        $dompdf = new Dompdf();
-        $pdfContent = View::make('mark.print',compact(['registration']))->render();
-        $dompdf->loadHtml($pdfContent);
+        $result = Mark::leftJoin('registrations','registrations.id','=','marks.registration_id')
+        ->leftJoin('user_details','user_details.id','=','registrations.student_id')
+        ->leftJoin('users','users.id','=','user_details.user_id')
+        ->where('user_details.id',$registration->student_id)
+        ->where('marks.registration_id',$Id)
+        ->select('users.name','marks.*','registrations.enrollment_year','registrations.enrollment_term','registrations.enrollment_session','registrations.discipline_id','user_details.student_id')
+        ->get();
+        $discipline = Discipline::leftJoin('schools','schools.id','=','disciplines.school_id')
+        ->select('disciplines.*','schools.school_name')
+        ->get();
+        $course = Course::get();
+        
+        return view('backend.mark.print',compact(['result','course','discipline']));
 
-        // (Optional) Set any desired configuration options
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the PDF
-        $dompdf->render();
-
-        // Output the PDF as a response with appropriate headers
-        return response($dompdf->output(), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="result.pdf"',
-        ]);
+        
     }
 }

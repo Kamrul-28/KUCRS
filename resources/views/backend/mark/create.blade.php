@@ -38,7 +38,8 @@
                                         <td>#</td>
                                         <th>Student Id</th>
                                         <th>Student Name</th>
-                                        <th>view/Give Marks</th>
+                                        <th>View/Give Marks</th>
+                                        <th>View Grade Sheet</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,7 @@
                                         <td>{{$registered_course->student_id}}</td>
                                         <td>{{$registered_course->name}}</td>
                                         <td><a href="{{ route('mark.generate',Crypt::encrypt($registered_course->reg_id)) }}" class="btn btn-primary">view</a></td>
+                                        <td><a href="{{ route('mark.print',Crypt::encrypt($registered_course->reg_id)) }}" class="btn btn-primary">Grade Sheet</a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
